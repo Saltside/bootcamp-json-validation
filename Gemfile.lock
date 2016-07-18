@@ -1,0 +1,39 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    addressable (2.3.8)
+    aws-sdk (2.3.22)
+      aws-sdk-resources (= 2.3.22)
+    aws-sdk-core (2.3.22)
+      jmespath (~> 1.0)
+    aws-sdk-resources (2.3.22)
+      aws-sdk-core (= 2.3.22)
+    jmespath (1.3.0)
+    json-schema (2.6.2)
+      addressable (~> 2.3.8)
+    minitest (5.9.0)
+    puma (3.4.0)
+    rack (1.6.4)
+    rack-protection (1.5.3)
+      rack
+    rack-test (0.6.3)
+      rack (>= 1.0)
+    sinatra (1.4.7)
+      rack (~> 1.5)
+      rack-protection (~> 1.4)
+      tilt (>= 1.3, < 3)
+    tilt (2.0.5)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  aws-sdk
+  json-schema
+  minitest
+  puma
+  rack-test
+  sinatra
+
+BUNDLED WITH
+   1.12.5
