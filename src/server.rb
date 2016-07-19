@@ -10,29 +10,28 @@ class App < Sinatra::Base
 	end
 
 	post '/sms' do
-		data = JSON.load request.body
+		request_content_type = request.content_type
 
-		request_content_type = request.env['CONTENT_TYPE']
+		if request_content_type.start_with? 'application/json'
+      data = JSON.load request.body
 
-		errors = JSON::Validator.fully_validate(settings.schema, data)
+      errors = JSON::Validator.fully_validate(settings.schema, data)
 
-		if request_content_type.include? 'application/json'
-			if errors.any?
+      if errors.any?
         status 400
         body(JSON.dump({
           errors: errors,
           passed_not: request_content_type
         }))
-
       else
   			status 200
   			content_type 'application/json'
-  			body(JSON.dump({
-  	         json_data_from_server: data,
-             errors: errors
+  			body(JSON.dump({  
+          json_data_from_server: data,
+          errors: errors
   	    }))
       end
-	  else
+    else
 		  status 406
 		  body nil
 	  end

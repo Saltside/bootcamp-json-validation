@@ -10,8 +10,8 @@ req = Net::HTTP::Post.new(uri.path)
 req.content_type = 'application/json'
 req.body = JSON.dump({
   "message" => "hi this is me",
-  "numbers" => ["+91828870"]
+  "numbers" => ["+91828870","+918282213870"]
 })
 res = http.request(req)
 
-puts res
+puts res.body
