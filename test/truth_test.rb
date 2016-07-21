@@ -14,17 +14,6 @@ class TruthTest < MiniTest::Test
 	end
 
 	def app
-		App
-	end
-
-	def test_another
-		get '/'
-		assert last_response.ok?
-	end
-
-	def test_sms
-		post '/sms' do
-			assert last_response
-		end
+	  App
 	end
 end

@@ -4,10 +4,20 @@ require 'json'
 require 'json-schema'
 
 
-class App < Sinatra::Base
-	get '/' do
-		status 200
-	end
+class App < Sinatra::Base	
+  # before do
+  #   request.body.rewind
+  #   @request_payload = JSON.parse request.body.read
+  # end
+
+  post '/' do
+    settings.gateway.deliver({
+      numbers: @request_payload['numbers'],
+      message: @request_payload['message']
+    })
+
+    status 204
+  end
 
 	post '/sms' do
 		request_content_type = request.content_type
@@ -19,17 +29,18 @@ class App < Sinatra::Base
 
       if errors.any?
         status 400
+        content_type 'application/json'
         body(JSON.dump({
           errors: errors,
-          passed_not: request_content_type
         }))
       else
-  			status 200
-  			content_type 'application/json'
-  			body(JSON.dump({  
-          json_data_from_server: data,
-          errors: errors
-  	    }))
+        settings.gateway.deliver({
+          numbers: data.fetch('numbers'),
+          message: data.fetch('message')
+        })
+
+        status 204
+        body nil
       end
     else
 		  status 406
