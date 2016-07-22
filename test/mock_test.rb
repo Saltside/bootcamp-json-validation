@@ -21,12 +21,32 @@ class AppTest < MiniTest::Test
 	def valid_message
 		'testing!'
 	end
+
+	def test_leftout_shit
+
+		gateway = mock
+    gateway.expects(:deliver).with({
+
+      numbers: [valid_number],
+      message: valid_message
+    })
+
+    app.set :gateway, gateway
+
+    post '/' , JSON.dump({
+
+      message: valid_message,
+      numbers: [valid_number]
+
+    }),'CONTENT_TYPE' => 'application/json'
+
+	end
  
 	def test_valid_request
 		gateway = mock
 		gateway.expects(:deliver).with({
 			message: valid_message,
-			numbers: valid_number
+			numbers: [ valid_number ]
 		})
 	
 		app.set :gateway, gateway

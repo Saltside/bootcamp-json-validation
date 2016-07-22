@@ -11,15 +11,15 @@ class App < Sinatra::Base
   # end
 
   post '/' do
+    data = JSON.load request.body
     settings.gateway.deliver({
-      numbers: @request_payload['numbers'],
-      message: @request_payload['message']
+      numbers: data.fetch('numbers'),
+      message: data.fetch('message')
     })
-
     status 204
   end
-
-	post '/sms' do
+	
+  post '/sms' do
 		request_content_type = request.content_type
 
 		if request_content_type.start_with? 'application/json'

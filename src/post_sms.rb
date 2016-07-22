@@ -4,6 +4,7 @@ require 'net/http'
 require 'json'
 require "uri"
 
+
 uri = URI.parse("http://localhost:9292/sms")
 http = Net::HTTP.new(uri.host,uri.port)
 req = Net::HTTP::Post.new(uri.path)
